@@ -1,10 +1,15 @@
 import React from 'react';
-import Button from '../components/Button';
+import styled from 'styled-components';
 
+const Title = styled.h1`
+  color: ${props => props.theme.blue};
+  font-weight: bold;
+  font-size: 24px;
+`;
 const Home = () => {
   return (
     <>
-      <h1>index Content</h1>
+      <Title>index Content</Title>
     </>
   );
 };
