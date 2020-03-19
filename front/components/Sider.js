@@ -1,7 +1,26 @@
 import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
-import { Menu, MenuItem, SubMenu, SubItem } from './Category';
+export const Menu = styled.ul`
+  color: ${props => props.theme.font};
+  font-size: 16px;
+`;
+export const MenuItem = styled.li`
+  height: 48px;
+  display: flex;
+  align-items: center;
+  padding: 0 32px;
+
+  background-color: ${props =>
+    props.selected ? props.theme.primaryLight : 'white'};
+  border-right: ${props => (props.selected ? '6px' : '0')} solid
+    ${props => props.theme.primary};
+  &:hover {
+    color: ${props => props.theme.primary};
+    cursor: pointer;
+  }
+`;
 
 const Sidebar = styled.nav`
   width: 16%;
@@ -9,32 +28,26 @@ const Sidebar = styled.nav`
   min-width: 260px;
   margin-bottom: -5000px; /* any large number will do */
   padding-bottom: 5000px;
-  color: ${props => props.theme.darkGrey};
+  color: ${props => props.theme.font};
   font-size: 14px;
   user-select: none;
+  border-right: 1px solid ${props => props.theme.borderLight};
 `;
 
-const Sider = () => {
+const Sider = ({ categories }) => {
   return (
     <Sidebar>
       <Menu>
-        <MenuItem title="Category 1">
-          <SubMenu>
-            <SubItem>서브 카테고리 1</SubItem>
-            <SubItem>서브 카테고리 2</SubItem>
-          </SubMenu>
-        </MenuItem>
-        <MenuItem title="Category 2">
-          <SubMenu>
-            <SubItem>sub category 1</SubItem>
-            <SubItem>sub category 2</SubItem>
-            <SubItem>sub category 3</SubItem>
-            <SubItem>sub category 4</SubItem>
-          </SubMenu>
-        </MenuItem>
+        {categories.map(category => (
+          <MenuItem key={category.id}>{category.title}</MenuItem>
+        ))}
       </Menu>
     </Sidebar>
   );
+};
+
+Sider.propTypes = {
+  categories: PropTypes.array.isRequired,
 };
 
 export default Sider;

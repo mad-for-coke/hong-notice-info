@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 const MenuStyled = styled.ul`
-  color: ${props => props.theme.darkGrey};
+  color: ${props => props.theme.font};
   font-size: 16px;
 `;
 const MenuItemStyled = styled.li`
@@ -18,7 +18,7 @@ const MenuItemStyled = styled.li`
   }
 
   & > div:hover {
-    color: ${props => props.theme.blue};
+    color: ${props => props.theme.primary};
     cursor: pointer;
   }
 
@@ -36,7 +36,7 @@ const SubItemStyled = styled.li`
   align-items: center;
 
   &:hover {
-    color: ${props => props.theme.blue};
+    color: ${props => props.theme.primay};
     cursor: pointer;
   }
 `;

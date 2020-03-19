@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import Breadcrumb from './Breadcrumb';
 import Footer from './Footer';
 
 const Section = styled.section`
@@ -11,7 +10,6 @@ const Section = styled.section`
   width: 84%;
 
   padding: 16px 24px 32px;
-  background-color: ${prop => prop.theme.lightGrey};
 
   & > span:first-child {
     align-self: flex-start;
@@ -21,7 +19,7 @@ const Section = styled.section`
   & > div {
     background-color: white;
     height: 100%;
-    height: 800px;
+    height: 1600px;
     width: 100%;
   }
 
@@ -32,7 +30,6 @@ const Section = styled.section`
 const Content = ({ content }) => {
   return (
     <Section>
-      <Breadcrumb />
       <div>{content}</div>
       <Footer />
     </Section>
