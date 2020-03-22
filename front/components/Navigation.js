@@ -34,14 +34,13 @@ const MenuItem = styled.div`
   font-weight: bold;
 `;
 
-const Logo = styled.div`
+const Logo = styled.h1`
   display: flex;
   width: 16%;
   min-width: 260px;
   height: 100%;
 
   align-items: center;
-  font-size: 28px;
   font-weight: bold;
   padding-left: 48px;
 
@@ -97,7 +96,7 @@ const Name = styled.span`
 `;
 const Navigation = () => {
   //const isLoggedIn = useSelector(state => state.user.isLoggedIn);
-  const isLoggedIn = true;
+  const isLoggedIn = false;
   return (
     <Nav>
       <Logo>
