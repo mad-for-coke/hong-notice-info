@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import PropTypes from 'prop-types';
 
 export const Menu = styled.ul`
-  color: ${props => props.theme.font};
   font-size: 16px;
 `;
 export const MenuItem = styled.li`
@@ -28,8 +27,6 @@ const Sidebar = styled.nav`
   min-width: 260px;
   margin-bottom: -5000px; /* any large number will do */
   padding-bottom: 5000px;
-  color: ${props => props.theme.font};
-  font-size: 14px;
   user-select: none;
   border-right: 1px solid ${props => props.theme.borderLight};
 `;

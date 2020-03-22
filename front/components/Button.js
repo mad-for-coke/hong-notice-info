@@ -12,6 +12,16 @@ const Button = styled.button`
   font-weight: ${props => props.primary && 'bold'};
 
   &:hover {
+    cursor: pointer;
+  }
+
+  &:active {
+    opacity: 0.8;
+    outline: none;
+  }
+
+  &:disabled {
+    opacity: 0.3;
   }
 `;
 

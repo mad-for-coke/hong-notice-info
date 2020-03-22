@@ -4,7 +4,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faAngleDown, faAngleUp } from '@fortawesome/free-solid-svg-icons';
 
 const MenuStyled = styled.ul`
-  color: ${props => props.theme.font};
   font-size: 16px;
 `;
 const MenuItemStyled = styled.li`

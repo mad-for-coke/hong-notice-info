@@ -10,17 +10,41 @@ import createSagaMiddleware from 'redux-saga';
 
 import themes from '../styles/themes';
 import Layout from '../components/Layout';
+import Footer from '../components/Footer';
 import Navigation from '../components/Navigation';
 import reducer from '../reducers';
 import rootSaga from '../sagas';
 
 const GlobalStyle = createGlobalStyle`
   ${Reset}
-  *{
-    box-sizing: border-box;
-  }
+
   html, body{
+    box-sizing: border-box;
     font-family: 'Roboto', sans-serif;
+    color: ${props => props.theme.font};
+    font-size: 14px;
+  }
+
+  *, *:before, *:after {
+    box-sizing: inherit;
+  }
+  
+  h1 {
+    font-size: 28px;
+    font-weight: bold;
+  }
+  h2 {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  h3 {
+    font-size: 18px;
+  }
+  h4 {
+    font-size: 16px;
+  }
+  h5 {
+    font-size: 14px;
   }
 `;
 
@@ -42,6 +66,7 @@ const App = ({ Component, store, pageProps }) => {
         </Head>
         <Navigation />
         <Component {...pageProps} />
+        <Footer />
       </ThemeProvider>
     </Provider>
   );
