@@ -1,27 +1,26 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('comment', {
-    id: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      unique: true
+/* jshint indent: 1 */
+
+module.exports = function(sequelize, DataTypes) {
+  const Comment = sequelize.define(
+    'Comment',
+    {
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: false
+      },
+      anonymous: {
+        type: DataTypes.INTEGER(1),
+        allowNull: true
+      }
     },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    anonymous: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: '0'
-    },
-    post_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    timestamps: true,
-    paranoid: true
-  });
+    {
+      charset: 'utf8mb4',
+      collate: 'utf8mb4_general_ci'
+    }
+  );
+  Comment.associate = db => {
+    db.Comment.belongsTo(db.User);
+    db.Comment.belongsTo(db.Post);
+  };
+  return Comment;
+};

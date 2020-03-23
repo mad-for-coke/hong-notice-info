@@ -1,43 +1,44 @@
-module.exports = (sequelize, DataTypes) =>
-  sequelize.define('post', {
-    title: {
-      type: DataTypes.STRING(100),
-      allowNull: false,
-      unique: true
-    },
-    description: {
-      type: DataTypes.TEXT,
-      allowNull: false
-    },
-    category_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    lock: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: '0'
-    },
-    user_id: {
-      type: DataTypes.INTEGER,
-      allowNull: false
-    },
-    visit: {
-      type: DataTypes.INTEGER,
-      allowNull: true,
-      defaultValue: '0'
-    },
-    liked: {
-      type: DataTypes.INTEGER,
-      allowNull: false,
-      defaultValue: '0'
-    },
-    anonymous: {
-      type: DataTypes.BOOLEAN,
-      allowNull: true,
-      defaultValue: '0'
-    },
+/* jshint indent: 1 */
 
-    timestamps: true,
-    paranoid: true
-  });
+module.exports = function(sequelize, DataTypes) {
+  const Post = sequelize.define(
+    'Post',
+    {
+      title: {
+        type: DataTypes.STRING(100),
+        allowNull: true
+      },
+      description: {
+        type: DataTypes.TEXT,
+        allowNull: true
+      },
+      lock: {
+        type: DataTypes.INTEGER(1),
+        allowNull: false,
+        defaultValue: '0'
+      },
+      visit: {
+        type: DataTypes.INTEGER(11),
+        allowNull: false,
+        defaultValue: '0'
+      },
+      anonymous: {
+        type: DataTypes.INTEGER(1),
+        allowNull: false,
+        defaultValue: '0'
+      }
+    },
+    {
+      charset: 'utf8mb4', //  한글+이모티콘
+      collate: 'utf8mb4_general_ci'
+    }
+  );
+  Post.associate = db => {
+    db.Post.belongsTo(db.User); // 테이블에 UserId 컬럼이 생겨요
+    db.Post.hasMany(db.Comment);
+    db.Post.belongsToMany(db.User, { through: 'Like', as: 'Likers' });
+    db.Post.belongsTo(db.Category);
+    db.Post.belongsTo(db.Board);
+  };
+  return Post;
+};
