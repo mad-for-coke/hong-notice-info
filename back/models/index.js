@@ -2,7 +2,7 @@ const path = require('path');
 const Sequelize = require('sequelize');
 
 const env = process.env.NODE_ENV || 'development';
-const config = require(__dirname + '/../config/config.json')[env];
+const config = require(__dirname + '/../config/config.js')[env];
 const db = {};
 
 const sequelize = new Sequelize(
@@ -17,6 +17,9 @@ db.Post = require('./post')(sequelize, Sequelize);
 db.Comment = require('./comment')(sequelize, Sequelize);
 db.Category = require('./category')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
+db.Information = require('./information')(sequelize, Sequelize);
+db.SubChild = require('./subChild')(sequelize, Sequelize);
+db.SubParent = require('./subParent')(sequelize, Sequelize);
 
 Object.keys(db).forEach(modelName => {
   if (db[modelName].associate) {

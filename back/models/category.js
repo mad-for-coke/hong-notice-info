@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
   const Category = sequelize.define(
     'Category',
     {
-      subject: {
+      name: {
         type: DataTypes.STRING(100),
         allowNull: false
       }
