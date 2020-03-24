@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const Button = styled.button`
+export default styled.button`
   width: 80px;
   height: 40px;
   font-size: 16px;
@@ -24,5 +24,3 @@ const Button = styled.button`
     opacity: 0.3;
   }
 `;
-
-export default Button;

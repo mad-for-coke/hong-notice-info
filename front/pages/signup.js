@@ -118,19 +118,23 @@ const SignUp = () => {
     setNicknameError(false);
   }, []);
 
-  const checkValidationPassword = useCallback(e => {
-    const idReg = /^[A-za-z0-9]{8,16}/g;
-    if (!idReg.test(e.target.value) || e.target.value.length > 16) {
-      setPasswordError(true);
-      return;
-    }
+  const checkValidationPassword = useCallback(
+    e => {
+      const idReg = /^[A-za-z0-9]{8,16}/g;
+      if (!idReg.test(e.target.value) || e.target.value.length > 16) {
+        setPasswordError(true);
+        return;
+      }
+      setPasswordError(false);
 
-    setPasswordError(false);
-  }, []);
+      setPasswordCheckError(e.target.value !== passwordCheck);
+    },
+    [passwordCheck]
+  );
 
   const checkValidationPasswordCheck = useCallback(
     e => {
-      setPasswordCheckError(password !== e.target.value);
+      setPasswordCheckError(e.target.value !== password);
     },
     [password]
   );
