@@ -12,28 +12,15 @@ import {
   LOAD_CATEGORIES_REQUEST,
   LOAD_CATEGORIES_SUCCESS,
   LOAD_CATEGORIES_FAILURE,
+  LOAD_SUBCATEGORIES_REQUEST,
+  LOAD_SUBCATEGORIES_SUCCESS,
+  SET_CURRENT_PATH,
 } from '../reducers/board';
 
-function loadCategoriesAPI(type) {
-  if (type === 'notice') {
-    return {
-      data: [
-        { id: 0, title: '학과 공지' },
-        { id: 1, title: '학생 공지' },
-        { id: 2, title: '클래스넷 공지' },
-      ],
-    };
-  } else if (type === 'article') {
-    return {
-      data: [
-        { id: 3, title: '웹' },
-        { id: 4, title: '앱' },
-        { id: 5, title: '알고리즘' },
-        { id: 6, title: '데이터 사이언스' },
-        { id: 7, title: '임베디드' },
-      ],
-    };
-  }
+import { categories, subcategories } from './dummy';
+
+function loadCategoriesAPI(root) {
+  return { data: categories[root] };
 }
 function* loadCategories(action) {
   try {
@@ -41,6 +28,14 @@ function* loadCategories(action) {
     yield put({
       type: LOAD_CATEGORIES_SUCCESS,
       data: res.data,
+    });
+
+    yield put({
+      type: LOAD_SUBCATEGORIES_REQUEST,
+      data: {
+        root: action.data,
+        category: res.data[0].id,
+      },
     });
   } catch (e) {
     console.error(e);
@@ -53,6 +48,41 @@ function* loadCategories(action) {
 function* watchLoadCategories() {
   yield takeEvery(LOAD_CATEGORIES_REQUEST, loadCategories);
 }
+
+function loadSubcategoriesAPI(root, category) {
+  return { data: subcategories[root][category] };
+}
+function* loadSubcategories(action) {
+  try {
+    const res = yield call(
+      loadSubcategoriesAPI,
+      action.data.root,
+      action.data.category
+    );
+    yield put({
+      type: LOAD_SUBCATEGORIES_SUCCESS,
+      data: res.data,
+    });
+
+    yield put({
+      type: SET_CURRENT_PATH,
+      data: {
+        root: action.data.root,
+        category: action.data.category,
+        subcategory: res.data[0].id,
+      },
+    });
+  } catch (e) {
+    console.error(e);
+    yield put({
+      type: LOAD_SUBCATEGORIES_FAILURE,
+      error: e,
+    });
+  }
+}
+function* watchLoadSubcategories() {
+  yield takeEvery(LOAD_SUBCATEGORIES_REQUEST, loadSubcategories);
+}
 export default function* boardSaga() {
-  yield all([fork(watchLoadCategories)]);
+  yield all([fork(watchLoadCategories), fork(watchLoadSubcategories)]);
 }
