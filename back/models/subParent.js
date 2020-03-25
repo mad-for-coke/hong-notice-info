@@ -15,7 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     }
   );
   SubParent.associate = db => {
-    db.SubParent.hasMany(db.SubChild);
+    db.SubParent.hasMany(db.SubChild, { as: 'sub' });
   };
   return SubParent;
 };
