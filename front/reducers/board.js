@@ -16,6 +16,10 @@ export const initialState = {
     category: null,
     subcategory: null,
   },
+  paths: {
+    notice: {},
+    board: {},
+  },
   categories: [],
   subcategories: [],
 };

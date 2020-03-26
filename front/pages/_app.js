@@ -7,6 +7,8 @@ import withRedux from 'next-redux-wrapper';
 import { applyMiddleware, compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
+import 'codemirror/lib/codemirror.css';
+import '@toast-ui/editor/dist/toastui-editor.css';
 
 import themes from '../styles/themes';
 import Layout from '../components/Layout';

@@ -29,6 +29,8 @@ export const initialState = {
   isSigningUp: false,
   isSignedUp: false,
   signUpError: '',
+
+  isLoginModalOpened: false,
 };
 
 const reducer = (state = initialState, action) => {

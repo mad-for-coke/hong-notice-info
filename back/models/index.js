@@ -17,7 +17,6 @@ db.Post = require('./post')(sequelize, Sequelize);
 db.Comment = require('./comment')(sequelize, Sequelize);
 db.Category = require('./category')(sequelize, Sequelize);
 db.Board = require('./board')(sequelize, Sequelize);
-db.Information = require('./information')(sequelize, Sequelize);
 db.SubChild = require('./subChild')(sequelize, Sequelize);
 db.SubParent = require('./subParent')(sequelize, Sequelize);
 

@@ -105,7 +105,7 @@ const Navigation = () => {
         </Link>
       </Logo>
       <Menu>
-        <Link href="/notice/">
+        <Link href="/post/">
           <a>
             <MenuItem>공지</MenuItem>
           </a>
@@ -117,7 +117,7 @@ const Navigation = () => {
         </Link>
       </Menu>
       {isLoggedIn ? (
-        <Link href="/Profile/">
+        <Link href="/profile/">
           <Profile>
             <Avatar>데</Avatar>
             <Name>니이이익익익네임</Name>

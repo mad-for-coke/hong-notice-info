@@ -57,3 +57,77 @@ export const subcategories = {
     ],
   },
 };
+
+const paths = {
+  notice: [
+    {
+      id: 1,
+      name: '학과 공지',
+      sub: [
+        { id: 1, name: '학과(학과)' },
+        { id: 2, name: '취업인턴' },
+        { id: 3, name: '수업/프로젝트' },
+        { id: 4, name: 'SCSC' },
+        { id: 5, name: '장학금' },
+      ],
+    },
+    {
+      id: 2,
+      name: '교내 공지',
+      sub: [
+        { id: 6, name: '코로나19' },
+        { id: 7, name: '일반공지' },
+        { id: 8, name: '학생공지' },
+        { id: 9, name: '교강사공지' },
+        { id: 10, name: '대학원공지' },
+        { id: 11, name: '행사/공모전' },
+        { id: 12, name: '보안공지' },
+        { id: 13, name: '입찰공고' },
+      ],
+    },
+    { id: 3, name: '클래스넷 공지', sub: [{ id: 14, name: '공지사항' }] },
+  ],
+
+  board: [
+    {
+      id: 1,
+      name: '웹',
+      sub: [
+        { id: 1, name: '질문' },
+        { id: 2, name: '정보' },
+      ],
+    },
+    {
+      id: 2,
+      name: '앱',
+      sub: [
+        { id: 1, name: '질문' },
+        { id: 2, name: '정보' },
+      ],
+    },
+    {
+      id: 3,
+      name: '알고리즘',
+      sub: [
+        { id: 1, name: '질문' },
+        { id: 2, name: '정보' },
+      ],
+    },
+    {
+      id: 4,
+      name: '데이터 사이언스',
+      sub: [
+        { id: 1, name: '질문' },
+        { id: 2, name: '정보' },
+      ],
+    },
+    {
+      id: 5,
+      name: '임베디드',
+      sub: [
+        { id: 1, name: '질문' },
+        { id: 2, name: '정보' },
+      ],
+    },
+  ],
+};
