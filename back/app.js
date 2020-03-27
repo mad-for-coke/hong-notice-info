@@ -19,8 +19,8 @@ passportConfig();
 // app.use('/', indexRouter);
 
 app.use(morgan('dev')); //이 서버로 오는 요청 req 의 로그를 찍어줌
-app.use(express.json());
 app.use(express.urlencoded({ extended: true })); //http req 헤더 json 형식으로 parsing 해줌
+app.use(express.json());
 app.use(
   cookieParser(process.env.COOKIE_SECRET)
   // process.env.COOKIE_SECRET
@@ -51,7 +51,6 @@ app.use(
 app.get('/', (req, res) => {
   res.send('success Test');
 });
-
 app.use('/api/user', userRouter);
 app.use('/api/post', postRouter);
 app.use('/api/posts', postsRouter);
