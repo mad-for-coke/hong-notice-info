@@ -12,16 +12,16 @@ router.get('/', async (req, res, next) => {
       include: [
         {
           model: db.User,
-          attributes: ['nickname', 'email', 'student_id']
+          attributes: ['nickname', 'email', 'student_id'],
         },
         {
           model: db.Category,
-          attributes: ['name']
+          attributes: ['name'],
         },
         {
           model: db.Board,
-          attributes: ['name']
-        }
+          attributes: ['name'],
+        },
       ],
       attributes: [
         'id',
@@ -31,8 +31,8 @@ router.get('/', async (req, res, next) => {
         'visit',
         'anonymous',
         'createdAt',
-        'updatedAt'
-      ]
+        'updatedAt',
+      ],
     });
     res.json(Posts);
   } catch (e) {
@@ -46,5 +46,15 @@ router.get('/notice/:id', (req, res) => {}); //공지페이지 에서 세부항�
 //id could be  1.학교공지 2.컴공과공지 3.클넷공지
 router.get('/board', (req, res) => {}); //게시판 들어가면 글 불러오기
 // router.get('/board/:category_id/:board_id', (req, res) => {}); //게시판 특정 카테고리 특정 보드 선택시 글 불러오기
-router.get('/board/:id', (req, res) => {});
+router.get('/:id', async (req, res, next) => {
+  try {
+    const newboard = await db.Post.findAll({
+      where: { CategoryId: parseInt(req.params.id, 10) },
+    });
+    return res.json(newboard);
+  } catch (e) {
+    console.error(e);
+    next(e);
+  }
+});
 module.exports = router;

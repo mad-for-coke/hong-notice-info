@@ -15,7 +15,7 @@ router.post('/', async (req, res, next) => {
       UserId: req.body.UserId,
       anonymous: req.body.anonymous,
       CategoryId: req.body.CategoryId,
-      BoardId: req.body.BoardId
+      BoardId: req.body.BoardId,
     });
     console.log(newPost);
     return res.status(200).json(newPost);
@@ -37,16 +37,16 @@ router.get('/:id', async (req, res, next) => {
       include: [
         {
           model: db.User,
-          attributes: ['id', 'nickname', 'email', 'student_id', 'createdAt']
+          attributes: ['id', 'nickname', 'email', 'student_id', 'createdAt'],
         },
         {
           model: db.Category,
-          attributes: ['name']
+          attributes: ['name'],
         },
         {
           model: db.Board,
-          attributes: ['name']
-        }
+          attributes: ['name'],
+        },
       ],
       attributes: [
         'id',
@@ -56,8 +56,8 @@ router.get('/:id', async (req, res, next) => {
         'visit',
         'anonymous',
         'createdAt',
-        'updatedAt'
-      ]
+        'updatedAt',
+      ],
     });
     return res.json(Post);
   } catch (e) {
@@ -66,10 +66,60 @@ router.get('/:id', async (req, res, next) => {
   }
 }); //특정 글 가져오기
 
-router.delete('/:id', (req, res) => {}); //글 삭제 + 로그인 구현 미들웨어 붙여줄것
+router.delete('/:id', async (req, res, next) => {
+  //로그인 구현 미들웨어 추가하기
+  //댓글이 달렸을 경우 삭제 못함!!!!!!! 추가하기
+
+  try {
+    const post = await db.Post.findOne({
+      where: { id: req.params.id },
+    });
+    if (!post) {
+      return res.status(404).send('post is doesnt exist!!');
+    }
+    await db.Post.destroy({ where: { id: req.params.id } });
+    res.send(req.params.id);
+  } catch (e) {
+    console.error(e);
+    return next(e);
+  }
+}); //글 삭제 + 로그인 구현 미들웨어 붙여줄것
 
 router.get('/:id/comments', (req, res) => {}); //특정 글에 달린 모든댓글 가져오기
-router.post('/:id/comments', (req, res) => {}); //특정 글에 댓글 추가하기
+
+router.post('/:id/comments/:userId', async (req, res, next) => {
+  //일단 parmas 로 userid 를 받는 형시긍로 구현하였음
+  //원래는 로그인 미들웨어를 이용하여 req.user.id 로 접근하도록 한다
+  //특정 글에 댓글 추가하기
+  try {
+    const post = await db.Post.findOne({ where: { id: req.params.id } });
+    if (!post) {
+      return res.status(404).send('포스트가 존재하지 않습니다.');
+    }
+    const newComment = await db.Comment.create({
+      PostId: post.id,
+      UserId: req.params.userId,
+      description: req.body.description,
+    });
+    await post.addComment(newComment.id);
+    const comment = await db.Comment.findOne({
+      where: {
+        id: newComment.id,
+      },
+      include: [
+        {
+          model: db.User,
+          attributes: ['id', 'nickname'],
+        },
+      ],
+    });
+    console.log(req.body);
+    return res.json(comment);
+  } catch (e) {
+    console.error(e);
+    return next(e);
+  }
+}); //특정 글에 댓글 추가하기
 router.patch('/:id/comments', (req, res) => {}); //특정 댓글 수정
 router.post('/:id/like', (req, res) => {}); //좋아요
 router.delete('/:id/like', (req, res) => {}); //좋아요취소
