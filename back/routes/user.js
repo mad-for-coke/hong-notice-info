@@ -22,8 +22,8 @@ router.post('/', async (req, res, next) => {
     console.log('테스트끝');
     const exUser = await db.User.findOne({
       where: {
-        login_id: req.body.login_id
-      }
+        login_id: req.body.login_id,
+      },
     });
     if (exUser) {
       return res.status(403).send('이미 사용중인 아이디입니다.');
@@ -36,7 +36,7 @@ router.post('/', async (req, res, next) => {
       login_id: req.body.login_id,
       password: hashedPassword,
       email: req.body.email,
-      student_id: req.body.student_id
+      student_id: req.body.student_id,
     });
     console.log(newUser);
     return res.status(200).json(newUser);
@@ -57,10 +57,10 @@ router.get('/:id', async (req, res, next) => {
         {
           model: db.Post,
           as: 'Posts',
-          attributes: ['id']
-        }
+          attributes: ['id'],
+        },
       ],
-      attributes: ['login_id', 'nickname', 'email', 'student_id']
+      attributes: ['login_id', 'nickname', 'email', 'student_id'],
     });
     const jsonUser = user.toJSON();
     jsonUser.Posts = jsonUser.Posts ? jsonUser.Posts.length : 0; //글쓴거 개수
@@ -79,12 +79,12 @@ router.get('/:id/posts', async (req, res, next) => {
       include: [
         {
           model: db.Category,
-          attributes: ['name']
+          attributes: ['name'],
         },
         {
           model: db.Board,
-          attributes: ['name']
-        }
+          attributes: ['name'],
+        },
       ],
       attributes: [
         'id',
@@ -94,8 +94,8 @@ router.get('/:id/posts', async (req, res, next) => {
         'visit',
         'anonymous',
         'createdAt',
-        'updatedAt'
-      ]
+        'updatedAt',
+      ],
     });
     return res.json(posts);
   } catch (e) {
@@ -104,6 +104,7 @@ router.get('/:id/posts', async (req, res, next) => {
   }
 }); //특정 유저가 쓴 글
 router.post('/login', (req, res) => {}); //로그인 + passport(local 전략) auth 절차 거치기
+//로그인
 
 router.post('/logout', (req, res) => {
   req.logout();
